@@ -1,0 +1,20 @@
+/* LINE CONFIGURATION */
+.chat-teks {
+padding:0 auto;
+margin-bottom:0;
+}
+.social-button{
+display:block;
+}
+.social-button img {
+max-height:30px;
+max-width:30px;
+border-radius:4px;
+margin-right:6px;
+}
+@media screen and (max-width: 768px){
+.social-button {
+display:block;
+}
+}
+/*END LINE CONFIGURATION*/

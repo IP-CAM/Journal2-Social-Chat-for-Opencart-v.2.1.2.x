@@ -1,0 +1,99 @@
+<modification>
+   <name><![CDATA[<font color="#0000"><b>Social Chat Modul</font>]]></name>
+   <code>LineModul</code>
+    <version><![CDATA[<b>1.0</b>]]></version>
+    <link>http://www.oceanesia.com</link>
+    <author><![CDATA[<font color="#CAB544"><b>Oceanesia</font>]]></author>
+
+	<file path="catalog/view/theme/journal2/template/product/product.tpl">
+		<operation>
+			<search trim="false"><![CDATA[<div class="wishlist-compare">]]></search>
+			<add position="Before"><![CDATA[
+	     <?php echo $chat_teks;?>
+            <div class="social-button" id="social">
+            <?php if ($line_active == 1){
+            ?>
+            <a href="<?php echo $link_line;?><?php echo str_replace('0=','',http_build_query(array($breadcrumb['text']))); echo'%0d%0a'; ?><?php if (!$special) { echo str_replace('0=','',http_build_query(array($price))); echo'%0d%0a'; } else { echo str_replace('0=','',http_build_query(array($special))); echo'%0d%0a'; } ?><?php echo $breadcrumb['href']; ?>"><?php echo $line_image ?></a>
+            <?php } ?>
+            <?php if ($messenger_active == 1){
+            ?>
+            <a href="<?php echo $link_messenger;?>"><?php echo $messenger_image ?></a>
+            <?php } ?>
+            <?php if ($wa_active == 1){
+            ?>
+            <a href="<?php echo $link_wa;?>"><?php echo $wa_image ?></a>
+            <?php } ?>
+            <?php if ($bbm_active == 1){
+            ?>
+            <a href="<?php echo $link_bbm;?>"><?php echo $bbm_image ?></a>
+            <?php } ?>
+            <?php if ($sms_active == 1){
+            ?>
+            <a href="<?php echo $link_sms;?><?php echo str_replace('0=','',http_build_query(array($breadcrumb['text']))); echo'%0d%0a'; ?><?php if (!$special) { echo str_replace('0=','',http_build_query(array($price))); echo'%0d%0a'; } else { echo str_replace('0=','',http_build_query(array($special))); echo'%0d%0a'; } ?><?php echo $breadcrumb['href']; ?>"><?php echo $sms_image ?></a>
+            <?php } ?>
+            </div>
+
+            <div class="wishlist-compare">
+				]]></add>
+		</operation>
+	</file>
+	
+	<file path="catalog/controller/product/product.php">
+		<operation>
+			<search trim="false"><![CDATA[$this->document->setTitle($product_info['meta_title']);]]>
+			</search>
+			<add position="After"><![CDATA[
+
+		$data['chat_teks'] 		  = '<div class="chat-teks"><p>1:1 Chat with Us on:</p></div>';
+
+			//Line Code
+        	$data['line_active']	  = $this->config->get('line_status');
+       	    	$line_image         	  = $this->config->get('config_url')."image/data/social/line.png";
+        	$data['line_image'] 	  = '<img src="'.$line_image.'" alt="LINE it!" />';
+
+		$line_id 		  = html_entity_decode($this->config->get('line_text_field'));
+        	$data['link_line']   	  = 'https://line.me/R/oaMessage/'.$line_id.'/?';
+
+
+        	//Messenger Code
+        	$data['messenger_active'] = $this->config->get('messenger_status');
+       	        $messenger_image          = $this->config->get('config_url')."image/data/social/messenger.png";
+        	$data['messenger_image']  = '<img src="'.$messenger_image.'" alt="Messenger" />';        	
+
+        	$messenger_id 		  = html_entity_decode($this->config->get('messenger_text_field'));
+        	$data['link_messenger']   = 'https://m.me/'.$messenger_id;
+
+
+        	//WhatsApp Code
+        	$data['wa_active'] 	  = $this->config->get('wa_status');
+       	        $wa_image          	  = $this->config->get('config_url')."image/data/social/wa.png";
+        	$data['wa_image']  	  = '<img src="'.$wa_image.'" alt="WhatsApp" />';        	
+
+        	$wa_id 			  = html_entity_decode($this->config->get('wa_text_field'));
+        	$data['link_wa']   	  = "tel:".$wa_id;
+
+
+        	//BBM Code
+        	$data['bbm_active'] 	  = $this->config->get('bbm_status');
+       	        $bbm_image          	  = $this->config->get('config_url')."image/data/social/bbm.png";
+        	$data['bbm_image']  	  = '<img src="'.$bbm_image.'" alt="BBM" />';        	
+
+        	$bbm_id 		  = html_entity_decode($this->config->get('bbm_text_field'));
+        	$data['link_bbm']   	  = 'bbmi://'.$bbm_id;
+
+        	//SMS Code
+        	$data['sms_active'] 	  = $this->config->get('sms_status');
+       	        $sms_image          	  = $this->config->get('config_url')."image/data/social/sms.png";
+        	$data['sms_image']  	  = '<img src="'.$sms_image.'" alt="SMS" />';        	
+
+        	$sms_id 		  = html_entity_decode($this->config->get('sms_text_field'));
+        	$data['link_sms']   	  = 'sms:'.$sms_id.'?body=';
+
+
+			$this->document->setTitle($product_info['meta_title']);
+
+				]]>
+			</add>
+		</operation>
+	</file>
+</modification>
