@@ -9,7 +9,23 @@
 		<operation>
 			<search trim="false"><![CDATA[<div class="wishlist-compare">]]></search>
 			<add position="Before"><![CDATA[
-	     <?php echo $chat_teks;?>
+	     <?php 
+            if ($line_active == 1) {
+                echo $chat_teks;
+            }elseif ($messenger_active == 1){
+                echo $chat_teks;
+            }elseif ($wa_active == 1) {
+                echo $chat_teks;
+            }elseif ($bbm_active == 1) {
+                echo $chat_teks;
+            }elseif ($sms_active == 1) {
+                echo $chat_teks;
+            }elseif ($lineid_active == 1) {
+                echo $chat_teks;
+            }else{
+                echo "";
+            }
+         ?>
             <div class="social-button" id="social">
             <?php if ($line_active == 1){
             ?>
@@ -31,6 +47,10 @@
             ?>
             <a href="<?php echo $link_sms;?><?php echo str_replace('0=','',http_build_query(array($breadcrumb['text']))); echo'%0d%0a'; ?><?php if (!$special) { echo str_replace('0=','',http_build_query(array($price))); echo'%0d%0a'; } else { echo str_replace('0=','',http_build_query(array($special))); echo'%0d%0a'; } ?><?php echo $breadcrumb['href']; ?>"><?php echo $sms_image ?></a>
             <?php } ?>
+            <?php if ($lineid_active == 1){
+            ?>
+            <a href="<?php echo $link_lineid;?>"><?php echo $lineid_image ?></a>
+            <?php } ?>
             </div>
 
             <div class="wishlist-compare">
@@ -48,7 +68,7 @@
 
 			//Line Code
         	$data['line_active']	  = $this->config->get('line_status');
-       	    	$line_image         	  = $this->config->get('config_url')."image/data/social/line.png";
+       	    	$line_image         	  = $this->config->get('config_url')."image/data/social/lineat.png";
         	$data['line_image'] 	  = '<img src="'.$line_image.'" alt="LINE it!" />';
 
 		$line_id 		  = html_entity_decode($this->config->get('line_text_field'));
@@ -70,7 +90,7 @@
         	$data['wa_image']  	  = '<img src="'.$wa_image.'" alt="WhatsApp" />';        	
 
         	$wa_id 			  = html_entity_decode($this->config->get('wa_text_field'));
-        	$data['link_wa']   	  = "tel:".$wa_id;
+        	$data['link_wa']   	  = "https://api.whatsapp.com/send?phone=".$wa_id;
 
 
         	//BBM Code
@@ -88,6 +108,16 @@
 
         	$sms_id 		  = html_entity_decode($this->config->get('sms_text_field'));
         	$data['link_sms']   	  = 'sms:'.$sms_id.'?body=';
+
+
+
+            //LINE id Code
+            $data['lineid_active']    = $this->config->get('lineid_status');
+                $lineid_image             = $this->config->get('config_url')."image/data/social/line.png";
+            $data['lineid_image']     = '<img src="'.$lineid_image.'" alt="lineid" />';         
+
+            $lineid_id        = html_entity_decode($this->config->get('lineid_text_field'));
+            $data['link_lineid']      = 'http://line.me/ti/p/~'.$lineid_id;
 
 
 			$this->document->setTitle($product_info['meta_title']);

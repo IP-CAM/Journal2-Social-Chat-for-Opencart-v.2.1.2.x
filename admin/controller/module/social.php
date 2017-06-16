@@ -10,8 +10,9 @@ class ControllerModuleSocial extends Controller {
         $this->document->setTitle($this->language->get('heading_title'));
      
         // Load the Setting Model  (All of the OpenCart Module & General Settings are saved using this Model )
+
         $this->load->model('setting/setting');
-     
+
         // Start If: Validates and check if data is coming by save (POST) method
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
             // Parse all the coming data to Setting Model to save it in database.
@@ -20,19 +21,18 @@ class ControllerModuleSocial extends Controller {
             $this->model_setting_setting->editSetting('wa', $this->request->post);
             $this->model_setting_setting->editSetting('bbm', $this->request->post);
             $this->model_setting_setting->editSetting('sms', $this->request->post);
-     
+            $this->model_setting_setting->editSetting('lineid', $this->request->post);
+
             // To display the success text on data save
             $this->session->data['success'] = $this->language->get('text_success');
-     
+
             // Redirect to the Module Listing
             $this->response->redirect($this->url->link('extension/module', 'token=' . $this->session->data['token'], 'SSL'));
         }
-        
 
-        
         // Assign the language data for parsing it to view
         $data['heading_title'] = $this->language->get('heading_title');
-     
+
         $data['text_edit']    = $this->language->get('text_edit');
         $data['text_enabled'] = $this->language->get('text_enabled');
         $data['text_disabled'] = $this->language->get('text_disabled');
@@ -40,23 +40,24 @@ class ControllerModuleSocial extends Controller {
         $data['text_content_bottom'] = $this->language->get('text_content_bottom');      
         $data['text_column_left'] = $this->language->get('text_column_left');
         $data['text_column_right'] = $this->language->get('text_column_right');
-     
+
         $data['entry_code_line'] = $this->language->get('entry_code_line');
         $data['entry_code_messenger'] = $this->language->get('entry_code_messenger');
         $data['entry_code_wa'] = $this->language->get('entry_code_wa');
         $data['entry_code_bbm'] = $this->language->get('entry_code_bbm');
         $data['entry_code_sms'] = $this->language->get('entry_code_sms');
+        $data['entry_code_lineid'] = $this->language->get('entry_code_lineid');
 
         $data['entry_layout'] = $this->language->get('entry_layout');
         $data['entry_position'] = $this->language->get('entry_position');
         $data['entry_status'] = $this->language->get('entry_status');
         $data['entry_sort_order'] = $this->language->get('entry_sort_order');
-     
+
         $data['button_save'] = $this->language->get('button_save');
         $data['button_cancel'] = $this->language->get('button_cancel');
         $data['button_add_module'] = $this->language->get('button_add_module');
         $data['button_remove'] = $this->language->get('button_remove');
-         
+
         // This Block returns the warning if any
         if (isset($this->error['warning'])) {
             $data['error_warning'] = $this->error['warning'];
@@ -113,21 +114,23 @@ class ControllerModuleSocial extends Controller {
 
 
 
-        // LINE MODUL     
-        // This block checks, if the line text field is set it parses it to view otherwise get the default 
+        // LINE MODUL
+        // This block checks, if the line text field is set it parses it to view otherwise get the default
+
         // hello world text field from the database and parse it
+
         if (isset($this->request->post['line_text_field'])) {
             $data['line_text_field'] = $this->request->post['line_text_field'];
         } else {
             $data['line_text_field'] = $this->config->get('line_text_field');
         }
         // This block parses the status (enabled / disabled)
+
         if (isset($this->request->post['line_status'])) {
             $data['line_status'] = $this->request->post['line_status'];
         } else {
             $data['line_status'] = $this->config->get('line_status');
         }
-        
 
 
         // WhatsApp MODUL     
@@ -147,7 +150,7 @@ class ControllerModuleSocial extends Controller {
 
 
 
-        // BBM MODUL     
+        // BBM MODUL
         // This block checks, if the BBM text field is set it parses it to view otherwise get the default 
         // hello world text field from the database and parse it
         if (isset($this->request->post['bbm_text_field'])) {
@@ -163,10 +166,10 @@ class ControllerModuleSocial extends Controller {
         }
 
 
-
-        // SMS MODUL     
+        // SMS MODUL
         // This block checks, if the SMS text field is set it parses it to view otherwise get the default 
         // hello world text field from the database and parse it
+
         if (isset($this->request->post['sms_text_field'])) {
             $data['sms_text_field'] = $this->request->post['sms_text_field'];
         } else {
@@ -181,6 +184,21 @@ class ControllerModuleSocial extends Controller {
 
 
 
+        // LINE ID Modul
+        // This block checks, if the Line ID text field is set it parses it to view otherwise get the default 
+        // hello world text field from the database and parse it
+
+        if (isset($this->request->post['lineid_text_field'])) {
+            $data['lineid_text_field'] = $this->request->post['lineid_text_field'];
+        } else {
+            $data['lineid_text_field'] = $this->config->get('lineid_text_field');
+        }
+        // This block parses the status (enabled / disabled)
+        if (isset($this->request->post['lineid_status'])) {
+            $data['lineid_status'] = $this->request->post['lineid_status'];
+        } else {
+            $data['lineid_status'] = $this->config->get('lineid_status');
+        }
 
 
         $data['header'] = $this->load->controller('common/header');
@@ -201,6 +219,7 @@ class ControllerModuleSocial extends Controller {
  
         // Block to check if the social_text_field is properly set to save into database,
         // otherwise the error is returned
+
         if (($this->request->post['messenger_text_field']) && ($this->request->post['messenger_status'] == 0)){
             !$this->error;
         }
@@ -269,6 +288,21 @@ class ControllerModuleSocial extends Controller {
             !$this->error;
         }
         elseif ((!$this->request->post['sms_text_field']) && ($this->request->post['sms_status'] == 0)) {
+            !$this->error;
+        }
+        else{
+            $this->error['code'] = $this->language->get('error_code');
+        }
+ 
+
+
+        if (($this->request->post['lineid_text_field']) && ($this->request->post['lineid_status'] == 0)){
+            !$this->error;
+        }
+        elseif(($this->request->post['lineid_text_field']) && ($this->request->post['lineid_status'] == 1)){
+            !$this->error;
+        }
+        elseif ((!$this->request->post['lineid_text_field']) && ($this->request->post['lineid_status'] == 0)) {
             !$this->error;
         }
         else{

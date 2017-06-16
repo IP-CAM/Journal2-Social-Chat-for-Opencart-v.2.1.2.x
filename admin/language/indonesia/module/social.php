@@ -13,6 +13,7 @@ $_['entry_code_messenger']= 'Facebook profile ID:';
 $_['entry_code_wa']		  = 'No. WhatsApp:';
 $_['entry_code_bbm']	  = 'PIN BBM:';
 $_['entry_code_sms']	  = 'No. Telephone untuk SMS:';
+$_['entry_code_lineid']	  = 'Line ID:';
 
 
 
@@ -20,5 +21,5 @@ $_['entry_code_sms']	  = 'No. Telephone untuk SMS:';
 $_['entry_status']        = 'Status:';
  
 // Error
-$_['error_permission']    = 'Warning: Anda tidak memiliki hak akses untuk memoifikasi Modul Social Chat!';
+$_['error_permission']    = 'Warning: Anda tidak memiliki hak akses untuk memodifikasi Modul Social Chat!';
 $_['error_code']          = 'PERHATIAN!: Silahkan masukkan kode pada kolom, untuk status social chat yang Diaktifkan';

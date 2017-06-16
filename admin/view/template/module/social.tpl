@@ -118,6 +118,24 @@
               </select>
             </div>
           </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="lineid_text_field"><?php echo $entry_code_lineid; ?></label>
+            <div class="col-sm-10">
+              <textarea name="lineid_text_field" cols="40" rows="2" placeholder="<?php echo $entry_code_lineid; ?>"><?php echo $lineid_text_field; ?></textarea>
+            </div>
+            <label class="col-sm-2 control-label" for="input-status"><?php echo $entry_status; ?></label>
+            <div class="col-sm-3">
+              <select name="lineid_status" id="input-status" class="form-control">
+                <?php if ($lineid_status) { ?>
+                <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                <option value="0"><?php echo $text_disabled; ?></option>
+                <?php } else { ?>
+                <option value="1"><?php echo $text_enabled; ?></option>
+                <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+          </div>
         </form>
       </div>
   </div>

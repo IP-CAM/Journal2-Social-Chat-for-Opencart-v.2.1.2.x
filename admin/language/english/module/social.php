@@ -13,6 +13,7 @@ $_['entry_code_messenger']= 'Facebook profile ID:';
 $_['entry_code_wa']		  = 'WhatsApp Number:';
 $_['entry_code_bbm']	  = 'BBM PIN:';
 $_['entry_code_sms']	  = 'Your SMS Phone Number:';
+$_['entry_code_lineid']	  = 'Line ID:';
 
 
 
